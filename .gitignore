@@ -40,3 +40,14 @@ lerna-debug.log*
 
 #.zip
 *.zip
+
+# all .env
+.env*
+
+
+#data volumne
+/data
+
+#migration files
+/src/infrastructure/database/migrations/*.ts
+

@@ -1,4 +1,4 @@
-import { ValidationError } from "../errors/validation.error";
+import { ValidationError } from "../../errors/validation.error";
 import { Email } from "../value-objects/email.value-object";
 import { Name } from "../value-objects/name.value-object";
 import { Password } from "../value-objects/password.value-object";
@@ -12,7 +12,7 @@ export class User {
   private _email: Email;
   private _password: Password;
   private _isActive: boolean;
-  private _roles: Role[];
+  private _roles?: Role[];
 
   constructor(
     id: string,
@@ -24,12 +24,12 @@ export class User {
     roles: Role[]
   ) {
     this._id = id;
-    this._name = name;
-    this._lastname = lastname;
+    this._name = new Name(name.value);
+    this._lastname = new Name(lastname.value);
     this._email = email;
     this._password = password;
-    this._isActive = isActive;
-    this._roles = roles;
+    this._isActive = isActive ? isActive : true;
+    this._roles = roles ? roles : [];
   }
 
   get id(): string {

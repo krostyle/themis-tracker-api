@@ -1,6 +1,6 @@
-import { Permission } from "./permission.entity";
-import { Role } from "./role.entity";
-import { User } from "./user.entity";
+import { Permission } from "../../user/entities/permission.entity";
+import { Role } from "../../user/entities/role.entity";
+import { User } from "../../user/entities/user.entity";
 
 class Session {
   private _token: string;
