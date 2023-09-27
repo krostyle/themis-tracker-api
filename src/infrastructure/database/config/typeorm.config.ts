@@ -5,6 +5,7 @@ import { SeederOptions } from "typeorm-extension";
 import InitSeeder from "../seeders/init.seeder";
 
 config();
+console.log(process.env.POSTGRES_PASSWORD);
 
 export const getTypeOrmConfig = (
   configService: ConfigService

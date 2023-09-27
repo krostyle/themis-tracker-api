@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { UserUseCase } from "../../../../application/use-cases/user/user.use-case.service";
+import { RegisterUserUseCase } from "../../../../application/use-cases/user/register-user.use-case.service";
 import { User } from "src/domain/user/entities/user.entity";
 
 @Controller("user")
 export class UserController {
-  constructor(private readonly userUseCase: UserUseCase) {}
+  constructor(private readonly userUseCase: RegisterUserUseCase) {}
   @Get()
   async getUsers(): Promise<User[] | []> {
     const users = await this.userUseCase.getUsers();

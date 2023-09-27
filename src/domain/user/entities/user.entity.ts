@@ -12,7 +12,7 @@ export class User {
   private _email: Email;
   private _password: Password;
   private _isActive: boolean;
-  private _roles?: Role[];
+  private _roles?: Role[] = [];
 
   constructor(
     id: string,
@@ -28,8 +28,8 @@ export class User {
     this._lastname = new Name(lastname.value);
     this._email = email;
     this._password = password;
-    this._isActive = isActive ? isActive : true;
-    this._roles = roles ? roles : [];
+    this._isActive = isActive;
+    this._roles = roles;
   }
 
   get id(): string {
@@ -72,14 +72,31 @@ export class User {
     this._roles.push(role);
   }
 
+  removeRole(role: Role): void {
+    const index = this._roles.indexOf(role);
+    if (index > -1) {
+      this._roles.splice(index, 1);
+    }
+  }
+
   changePassword(newPassword: Password): void {
-    if (newPassword.value === this._password.value) {
+    if (this._password.isEquals(newPassword)) {
       throw new ValidationError(
         "New password must be different from current password."
       );
     }
     this._password = newPassword;
   }
+
+  hasRole(role: Role): boolean {
+    for (const r of this._roles) {
+      if (r === role) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   hasPermission(permission: Permission): boolean {
     for (const role of this._roles) {
       if (role.hasPermission(permission)) {

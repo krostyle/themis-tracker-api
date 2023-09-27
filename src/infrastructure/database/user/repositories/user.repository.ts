@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "src/domain/user/entities/user.entity";
-import { UserRepository } from "src/domain/user/repositories/user.repository";
+import { IUserRepository } from "src/domain/user/repositories/user.repository";
 import { EntityManager } from "typeorm";
 import { UserMapper } from "../mappers/user.mapper";
 import { InjectEntityManager } from "@nestjs/typeorm";
 import { UserOrmEntity } from "../entities/user.orm.entity";
 
 @Injectable()
-export class UserDbRepository implements UserRepository {
+export class UserDbRepository implements IUserRepository {
   constructor(@InjectEntityManager() private readonly manager: EntityManager) {}
 
   async saveUser(user: User): Promise<void> {

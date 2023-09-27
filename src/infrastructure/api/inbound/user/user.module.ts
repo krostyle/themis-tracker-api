@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 import { UserController } from "./user.controller";
-import { UserUseCase } from "src/application/use-cases/user/user.use-case.service";
+import { RegisterUserUseCase } from "@/application/use-cases/user/register-user.use-case.service";
 import { UserDbRepository } from "src/infrastructure/database/user/repositories/user.repository";
 
 @Module({
   imports: [],
   providers: [
-    UserUseCase,
+    RegisterUserUseCase,
     { provide: "UserRepository", useClass: UserDbRepository },
   ],
   controllers: [UserController],

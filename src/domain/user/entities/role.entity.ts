@@ -40,7 +40,7 @@ export class Role {
   }
 
   get permissions(): Permission[] {
-    return this._permissions;
+    return [...this._permissions];
   }
 
   deactivate(): void {

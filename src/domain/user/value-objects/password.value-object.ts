@@ -25,6 +25,10 @@ export class Password {
     return hasNumber && hasLowercase && hasUppercase && hasSpecialCharacter;
   }
 
+  isEquals(password: Password): boolean {
+    return this._value === password.value;
+  }
+
   get value(): string {
     return this._value;
   }
