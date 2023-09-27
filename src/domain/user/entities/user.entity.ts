@@ -12,10 +12,10 @@ export class User {
   private _email: Email;
   private _password: Password;
   private _isActive: boolean;
-  private _roles?: Role[] = [];
+  private _roles: Role[] = [];
 
   constructor(
-    id: string,
+    // id: string,
     name: Name,
     lastname: Name,
     email: Email,
@@ -23,7 +23,7 @@ export class User {
     isActive: boolean,
     roles: Role[]
   ) {
-    this._id = id;
+    // this._id = id;
     this._name = new Name(name.value);
     this._lastname = new Name(lastname.value);
     this._email = email;

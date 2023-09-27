@@ -28,7 +28,7 @@ export class UserMapper {
       ? ormUser.roles.map(RoleMapper.toDomainEntity)
       : [];
     const user = new User(
-      ormUser.id,
+      // ormUser.id,
       new Name(ormUser.name),
       new Name(ormUser.lastname),
       new Email(ormUser.email),
