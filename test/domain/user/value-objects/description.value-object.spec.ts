@@ -1,4 +1,4 @@
-import { Description } from "@/domain/user/value-objects/description.value-object";
+import { Description } from "@/auth/domain/value-objects/description.value-object";
 
 describe("Description.ValueObject", () => {
   it("should throw ValidationError if value is empty", () => {
