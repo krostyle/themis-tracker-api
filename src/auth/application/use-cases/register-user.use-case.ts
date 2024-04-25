@@ -19,16 +19,16 @@ export class RegisterUserUseCase {
       throw new Error("User already exists");
     }
 
-    const userEntity = new User(
-      new Name(userData.name),
-      new Name(userData.lastname),
-      new Email(userData.email),
-      new Password(userData.password),
-      true,
-      []
-    );
+    // const userEntity = new User(
+    //   new Name(userData.name),
+    //   new Name(userData.lastname),
+    //   new Email(userData.email),
+    //   new Password(userData.password),
+    //   true,
+    //   []
+    // );
 
-    await this.userRepository.saveUser(userEntity);
+    // await this.userRepository.saveUser(userEntity);
   }
 
   public async getUsers(): Promise<User[] | []> {
