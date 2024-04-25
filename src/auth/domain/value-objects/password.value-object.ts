@@ -9,7 +9,7 @@ export class Password {
         "Password must contain at least one digit, one lowercase letter, one uppercase letter and one special character."
       );
     }
-    this._value = value.trim();
+    this._value = value;
   }
 
   private isValidPassword(password: string): boolean {

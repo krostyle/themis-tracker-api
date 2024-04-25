@@ -15,6 +15,7 @@ export class User {
   private _roles: Role[] = [];
 
   constructor(
+    id: string,
     name: Name,
     lastname: Name,
     email: Email,
@@ -22,6 +23,7 @@ export class User {
     isActive: boolean,
     roles: Role[]
   ) {
+    this._id = id;
     this._name = name;
     this._lastname = lastname;
     this._email = email;
