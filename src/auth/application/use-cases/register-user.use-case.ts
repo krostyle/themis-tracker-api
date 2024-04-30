@@ -1,38 +1,53 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { User } from "@/auth/domain/entities/user.entity";
-import { UserRepositoryInterface } from "@/auth/domain/repositories/user.repository.interface";
-import { Name } from "../../domain/value-objects/name.value-object";
-import { Email } from "@/auth/domain/value-objects/email.value-object";
-import { Password } from "@/auth/domain/value-objects/password.value-object";
-import { RegisterUserDto } from "./dtos/register-user.dto";
+import { Inject, Injectable } from '@nestjs/common'
+import { User } from '@/auth/domain/entities/user.entity'
+import { UserRepositoryInterface } from '@/auth/domain/repositories/user.repository.interface'
+import { RegisterUserDto } from '../dtos/register-user.dto'
+import { DomainError } from '@/auth/domain/errors/domain.error'
+import { PasswordHasherServiceInterface } from '@/auth/domain/services/password-hasher.interface'
+import { UuidGeneratorServiceInterface } from '@/auth/domain/services/uuid-generator.interface'
+import { RegisterUserResponseDto } from '../dtos/register-user-response.dto'
 
 @Injectable()
 export class RegisterUserUseCase {
   constructor(
-    @Inject("UserRepository")
-    private readonly userRepository: UserRepositoryInterface
+    @Inject('UserRepositoryInterface')
+    private readonly userRepository: UserRepositoryInterface,
+    @Inject('PasswordHasherServiceInterface')
+    private readonly passwordHasherService: PasswordHasherServiceInterface,
+    @Inject('UuidGeneratorServiceInterface')
+    private readonly uuidGeneratorService: UuidGeneratorServiceInterface,
   ) {}
 
-  public async registerUser(userData: RegisterUserDto): Promise<void> {
-    const user = await this.userRepository.findUserByEmail(userData.email);
+  public async execute(
+    userData: RegisterUserDto,
+  ): Promise<RegisterUserResponseDto> {
+    const user = await this.userRepository.findUserByEmail(userData.email)
     if (user) {
-      throw new Error("User already exists");
+      throw new DomainError('User already exists')
     }
 
-    // const userEntity = new User(
-    //   new Name(userData.name),
-    //   new Name(userData.lastname),
-    //   new Email(userData.email),
-    //   new Password(userData.password),
-    //   true,
-    //   []
-    // );
+    const hashedPassword = await this.passwordHasherService.hashPassword(
+      userData.password,
+    )
 
-    // await this.userRepository.saveUser(userEntity);
-  }
+    const newUser = new User(
+      this.uuidGeneratorService.generateUuid(),
+      userData.name,
+      userData.lastname,
+      userData.email,
+      hashedPassword,
+      true,
+    )
 
-  public async getUsers(): Promise<User[] | []> {
-    const users = await this.userRepository.findAllUsers();
-    return users;
+    const userCreated = await this.userRepository.createUser(newUser)
+
+    return {
+      name: userCreated.name,
+      lastname: userCreated.lastname,
+      email: userCreated.email,
+      isActive: userCreated.isActive,
+      createdAt: userCreated.createdAt,
+      updatedAt: userCreated.updatedAt,
+    }
   }
 }

@@ -31,9 +31,15 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.1.12",
+    "@prisma/adapter-pg": "^5.13.0",
+    "@prisma/client": "^5.13.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/uuid": "^9.0.8",
+    "bcrypt": "^5.1.1",
     "pg": "^8.11.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
